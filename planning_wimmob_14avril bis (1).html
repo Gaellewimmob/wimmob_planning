@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning Wimmob — 14 avril 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;font-size:13px;padding:32px 40px}
+h1{font-size:22px;font-weight:700;margin-bottom:4px}
+.subtitle{font-size:13px;color:#666;margin-bottom:8px}
+.meta{font-size:12px;color:#888;margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid #1a1a1a}
+h2{font-size:16px;font-weight:700;margin:36px 0 4px;padding-top:8px}
+h2.first{margin-top:0}
+.section-sub{font-size:12px;color:#666;margin-bottom:14px}
+
+/* Gantt */
+.gantt-wrap{overflow-x:auto;margin-bottom:8px}
+.legend{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap;font-size:11px;color:#666}
+.leg-item{display:flex;align-items:center;gap:5px}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+table.gantt{border-collapse:collapse;width:100%;min-width:600px}
+table.gantt thead th{font-size:10px;font-weight:500;color:#888;padding:3px 0;border-bottom:1px solid #e0e0e0;text-align:center;white-space:nowrap}
+table.gantt thead th.lbl-hd{text-align:left;padding:3px 8px 3px 0;min-width:180px}
+table.gantt thead th.who-hd{padding:3px 8px;min-width:60px}
+table.gantt thead th.today-hd{color:#d68910;font-weight:700}
+table.gantt tbody tr{border-bottom:1px solid #f0f0f0}
+table.gantt tbody tr.client-sep td{border-top:1px solid #d0d0d0;padding-top:8px}
+table.gantt td{padding:0;vertical-align:middle}
+table.gantt td.label{font-size:11px;white-space:nowrap;max-width:190px;overflow:hidden;text-overflow:ellipsis;padding:4px 8px 4px 0;min-width:180px}
+table.gantt td.label.client-first{padding-top:8px}
+table.gantt td.who-cell{font-size:10px;white-space:nowrap;padding:3px 8px}
+table.gantt td.day-cell{width:26px;min-width:26px;padding:2px 0}
+table.gantt td.today-col{background:rgba(186,117,23,.07)}
+table.gantt td.we-col{background:#f8f8f8}
+.bar-wrap{display:flex;align-items:center;height:16px;overflow:visible}
+.bar{height:16px;flex-shrink:0;width:100%}
+.bar-g{background:#1D9E75}
+.bar-a{background:#378ADD}
+.bar-ga{background:#EF9F27}
+.bar-start{border-radius:3px 0 0 3px}
+.bar-end{border-radius:0 3px 3px 0}
+.bar-solo{border-radius:3px}
+.bar-mid{border-radius:0}
+.dl-tag{font-size:9px;color:#888;white-space:nowrap;padding-left:4px;flex-shrink:0}
+.who-g{color:#085041;background:#E1F5EE;padding:1px 6px;border-radius:8px;font-weight:600}
+.who-a{color:#0C447C;background:#E6F1FB;padding:1px 6px;border-radius:8px;font-weight:600}
+.who-ga{color:#633806;background:#FAEEDA;padding:1px 6px;border-radius:8px;font-weight:600}
+.client-label-row td{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#999;padding:10px 0 2px;background:#fafafa;border-top:1px solid #e8e8e8}
+
+/* Task lists */
+.task-list{margin-bottom:8px}
+.task-list table{width:100%;border-collapse:collapse}
+.task-list table th{font-size:10px;font-weight:600;color:#888;text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid #e0e0e0;text-transform:uppercase;letter-spacing:.05em}
+.task-list table td{font-size:12px;padding:5px 10px 5px 0;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.task-list table td.dossier-cell{color:#888;font-size:11px;white-space:nowrap}
+.task-list table td.who-td{white-space:nowrap}
+.task-list table td.dl-td{white-space:nowrap;font-size:11px}
+.dl-fire{color:#c0392b;font-weight:600}
+.dl-warn{color:#d68910;font-weight:600}
+.dl-ok{color:#1a7a4a}
+.task-list table tr.client-sep td{border-top:1px solid #d0d0d0;padding-top:8px}
+
+/* Page breaks */
+.page-break{page-break-before:always;break-before:always;margin-top:0;padding-top:0}
+.section-block{page-break-inside:avoid}
+
+/* Print */
+@media print{
+  body{padding:20px 28px;font-size:12px}
+  h2{margin-top:24px}
+  .gantt-wrap{overflow:visible}
+  table.gantt{min-width:0}
+}
+</style>
+</head>
+<body>
+
+<h1>Planning Wimmob</h1>
+<div class="subtitle">Séance du mardi 14 avril 2026 — Gaëlle &amp; Aymeric</div>
+<div class="meta">Généré le 15/04/2026</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  SECTION 1 — PLANNINGS GANTT                   -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<h2 class="first">1. Planning général — toutes les tâches</h2>
+<div class="section-sub">Du 15 au 30 avril 2026</div>
+<div id="gantt-all"></div>
+
+<div class="page-break"></div>
+
+<h2>2. Planning Gaëlle</h2>
+<div class="section-sub">Tâches assignées à Gaëlle uniquement</div>
+<div id="gantt-g"></div>
+
+<div class="page-break"></div>
+
+<h2>3. Planning Aymeric</h2>
+<div class="section-sub">Tâches assignées à Aymeric uniquement</div>
+<div id="gantt-a"></div>
+
+<div class="page-break"></div>
+
+<h2>4. Planning Gaëlle + Aymeric</h2>
+<div class="section-sub">Tâches partagées entre Gaëlle et Aymeric</div>
+<div id="gantt-ga"></div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  SECTION 2 — LISTES DE TÂCHES                  -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<h2>5. Liste globale — toutes les tâches</h2>
+<div class="section-sub">Classées par client, puis par deadline</div>
+<div id="list-all"></div>
+
+<div class="page-break"></div>
+
+<h2>6. Liste Gaëlle</h2>
+<div class="section-sub">Tâches assignées à Gaëlle uniquement</div>
+<div id="list-g"></div>
+
+<div class="page-break"></div>
+
+<h2>7. Liste Aymeric</h2>
+<div class="section-sub">Tâches assignées à Aymeric uniquement</div>
+<div id="list-a"></div>
+
+<div class="page-break"></div>
+
+<h2>8. Liste Gaëlle + Aymeric</h2>
+<div class="section-sub">Tâches partagées entre Gaëlle et Aymeric</div>
+<div id="list-ga"></div>
+
+<script>
+const START = new Date('2026-04-15');
+const DAYS = 16;
+
+const TASKS = [
+  {client:'SCI CDS',          ville:'Bergerac',       l:'Relancer pour le contrat d\'apporteur d\'affaires',          w:'A',  d0:0, d1:15, open:true},
+  {client:'Laferrière',       ville:'Bergerac',       l:'Constituer et envoyer le dossier Action Logement',           w:'G',  d0:0, d1:4},
+  {client:'Laferrière',       ville:'Bergerac',       l:'Relancer Chaussadas dès le 20/04 (retour congés)',           w:'G',  d0:5, d1:5},
+  {client:'Javaloyes',        ville:'Bergerac',       l:'Envoyer dossier Action Logement (volet tech + formulaires)', w:'G',  d0:0, d1:4},
+  {client:'Giroud',           ville:'Bergerac',       l:'Relancer Guibret pour l\'offre de prêt en attente',          w:'G',  d0:0, d1:2},
+  {client:'Lair Florian',     ville:'Bourg-en-Bresse',l:'Transmettre l\'audit énergétique à la nouvelle entreprise',  w:'A',  d0:0, d1:4},
+  {client:'AS Invest',        ville:'Maubeuge',       l:'Réceptionner plans archi + transmettre à Sylvain (Yezo-H)', w:'A',  d0:0, d1:5},
+  {client:'AS Invest',        ville:'Maubeuge',       l:'Relancer Action Logement sur financement projet 9 lgts',     w:'A',  d0:0, d1:6},
+  {client:'AS Invest',        ville:'Maubeuge',       l:'Mettre à jour calcul subventions après réception des plans', w:'A',  d0:0, d1:10},
+  {client:'SCI AB Gambetta',  ville:'Saintes',        l:'Appeler Youssef — position du maire + réclamation évent.',   w:'G',  d0:0, d1:1},
+  {client:'SCI CAC',          ville:'Saintes',        l:'Appeler Marchasson (aujourd\'hui)',                          w:'G',  d0:0, d1:0},
+  {client:'SCI CAC',          ville:'Saintes',        l:'Envoyer éléments Action Logement à Marchasson',             w:'G',  d0:0, d1:9},
+  {client:'SCI CAC',          ville:'Saintes',        l:'Finaliser et déposer le dossier ANAH',                      w:'G',  d0:0, d1:6},
+  {client:'Be Hold Invest',   ville:'Tarbes',         l:'Organiser point technique à 3 (Gaëlle, Aymeric, client)',   w:'GA', d0:0, d1:15, open:true},
+  {client:'Be Hold Invest',   ville:'Tarbes',         l:'Visio mardi prochain — point sur compromis non signé',      w:'GA', d0:0, d1:7},
+  {client:'Bouteloup Keller', ville:'Agen',           l:'Envoyer dossier Action Logement à Jérémy Antoine',          w:'G',  d0:0, d1:15, open:true},
+  {client:'Bouteloup Keller', ville:'Agen',           l:'Monter le dossier ANAH',                                    w:'G',  d0:0, d1:15, open:true},
+  {client:'Interne',          ville:'',               l:'Mettre en place système timer/planning projets',            w:'GA', d0:0, d1:6},
+  {client:'Interne',          ville:'',               l:'Contacter équipe pour nouveaux formulaires Action Logement', w:'G',  d0:0, d1:0},
+];
+
+const barCls={G:'bar-g',A:'bar-a',GA:'bar-ga'};
+const whoCls={G:'who-g',A:'who-a',GA:'who-ga'};
+const whoLbl={G:'Gaëlle',A:'Aymeric',GA:'Gaëlle + Aymeric'};
+const whoShort={G:'Gaëlle',A:'Aymeric',GA:'G + A'};
+
+function addD(n){const d=new Date(START);d.setDate(d.getDate()+n);return d;}
+function isWE(n){const w=addD(n).getDay();return w===0||w===6;}
+function fmtShort(n){const d=addD(n);return d.getDate()+'/'+(d.getMonth()+1);}
+function fmtFull(n){const d=addD(n);return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});}
+function dlClass(n){
+  if(n===null) return '';
+  if(n<=0) return 'dl-fire';
+  if(n<=3) return 'dl-warn';
+  return 'dl-ok';
+}
+function dlLabel(t){
+  if(t.open) return 'en cours';
+  const d=addD(t.d1);
+  const diff=t.d1;
+  if(diff===0) return 'aujourd\'hui';
+  if(diff===1) return 'demain';
+  return fmtFull(t.d1);
+}
+
+function buildGantt(containerId, filter){
+  const tasks = filter ? TASKS.filter(t=>filter.includes(t.w)) : TASKS;
+  const container = document.getElementById(containerId);
+
+  const legend = document.createElement('div');
+  legend.className='legend';
+  const show = filter || ['G','A','GA'];
+  if(show.includes('G')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Gaëlle</div>`;
+  if(show.includes('A')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div>Aymeric</div>`;
+  if(show.includes('GA')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#EF9F27"></div>Gaëlle + Aymeric</div>`;
+  container.appendChild(legend);
+
+  const wrap=document.createElement('div');
+  wrap.className='gantt-wrap';
+  const tbl=document.createElement('table');
+  tbl.className='gantt';
+
+  const thead=document.createElement('thead');
+  const trH=document.createElement('tr');
+  let th=document.createElement('th');th.className='lbl-hd';th.textContent='Client / Tâche';trH.appendChild(th);
+  th=document.createElement('th');th.className='who-hd';th.textContent='Resp.';trH.appendChild(th);
+  for(let i=0;i<DAYS;i++){
+    const d=addD(i);
+    const t=document.createElement('th');
+    t.className='day-hd'+(i===0?' today-hd':'');
+    t.textContent=d.getDate()+'/'+(d.getMonth()+1);
+    if(isWE(i))t.style.opacity='.4';
+    trH.appendChild(t);
+  }
+  thead.appendChild(trH);
+  tbl.appendChild(thead);
+
+  const tbody=document.createElement('tbody');
+  let lastClient='';
+
+  tasks.forEach((t,idx)=>{
+    const isNewClient = t.client!==lastClient;
+    if(isNewClient && lastClient!==''){
+      const sep=document.createElement('tr');
+      sep.className='client-label-row';
+      const std=document.createElement('td');
+      std.colSpan=2+DAYS;std.style.height='4px';std.style.padding='0';
+      sep.appendChild(std);
+      tbody.appendChild(sep);
+    }
+    if(isNewClient){
+      const cr=document.createElement('tr');
+      cr.className='client-label-row';
+      const ctd=document.createElement('td');
+      ctd.colSpan=2+DAYS;
+      ctd.textContent=t.client+(t.ville?' — '+t.ville:'');
+      cr.appendChild(ctd);
+      tbody.appendChild(cr);
+      lastClient=t.client;
+    }
+
+    const tr=document.createElement('tr');
+    const tdL=document.createElement('td');
+    tdL.className='label';
+    tdL.textContent=t.l;tdL.title=t.l;
+    tr.appendChild(tdL);
+
+    const tdW=document.createElement('td');
+    tdW.className='who-cell';
+    tdW.innerHTML=`<span class="${whoCls[t.w]}">${whoShort[t.w]}</span>`;
+    tr.appendChild(tdW);
+
+    for(let i=0;i<DAYS;i++){
+      const td=document.createElement('td');
+      td.className='day-cell'+(i===0?' today-col':'')+(isWE(i)?' we-col':'');
+
+      if(i>=t.d0 && i<=t.d1){
+        if(i===t.d1){
+          const wrap2=document.createElement('div');
+          wrap2.className='bar-wrap';
+          const bar=document.createElement('div');
+          bar.className='bar '+barCls[t.w];
+          bar.style.width='100%';
+          if(t.d0===t.d1) bar.classList.add('bar-solo');
+          else bar.classList.add('bar-end');
+          wrap2.appendChild(bar);
+          if(!t.open){
+            const lbl=document.createElement('span');
+            lbl.className='dl-tag';
+            lbl.textContent=fmtShort(t.d1);
+            wrap2.appendChild(lbl);
+          }
+          td.appendChild(wrap2);
+          td.style.overflow='visible';
+        } else {
+          const bar=document.createElement('div');
+          bar.className='bar '+barCls[t.w];
+          bar.style.width='100%';
+          if(t.d0===t.d1) bar.classList.add('bar-solo');
+          else if(i===t.d0) bar.classList.add('bar-start');
+          else bar.classList.add('bar-mid');
+          td.appendChild(bar);
+        }
+      }
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+
+  tbl.appendChild(tbody);
+  wrap.appendChild(tbl);
+  container.appendChild(wrap);
+}
+
+function buildList(containerId, filter){
+  const tasks = filter ? TASKS.filter(t=>filter.includes(t.w)) : TASKS;
+  const container = document.getElementById(containerId);
+  const wrap=document.createElement('div');
+  wrap.className='task-list';
+  const tbl=document.createElement('table');
+
+  const thead=document.createElement('thead');
+  const trH=document.createElement('tr');
+  ['Client','Tâche','Responsable','Deadline'].forEach((h,i)=>{
+    const th=document.createElement('th');
+    th.textContent=h;
+    if(i===1) th.style.width='45%';
+    trH.appendChild(th);
+  });
+  thead.appendChild(trH);
+  tbl.appendChild(thead);
+
+  const tbody=document.createElement('tbody');
+  let lastClient='';
+
+  tasks.forEach(t=>{
+    const isNew=t.client!==lastClient;
+    const tr=document.createElement('tr');
+    if(isNew && lastClient!=='') tr.classList.add('client-sep');
+
+    const tdC=document.createElement('td');
+    tdC.className='dossier-cell';
+    if(isNew){
+      tdC.textContent=t.client+(t.ville?' ('+t.ville+')':'');
+      lastClient=t.client;
+    }
+    tr.appendChild(tdC);
+
+    const tdL=document.createElement('td');tdL.textContent=t.l;tr.appendChild(tdL);
+
+    const tdW=document.createElement('td');
+    tdW.className='who-td';
+    tdW.innerHTML=`<span class="${whoCls[t.w]}">${whoShort[t.w]}</span>`;
+    tr.appendChild(tdW);
+
+    const tdD=document.createElement('td');
+    tdD.className='dl-td '+dlClass(t.open?null:t.d1);
+    tdD.textContent=dlLabel(t);
+    tr.appendChild(tdD);
+
+    tbody.appendChild(tr);
+  });
+
+  tbl.appendChild(tbody);
+  wrap.appendChild(tbl);
+  container.appendChild(wrap);
+}
+
+buildGantt('gantt-all', null);
+buildGantt('gantt-g', ['G']);
+buildGantt('gantt-a', ['A']);
+buildGantt('gantt-ga', ['GA']);
+
+buildList('list-all', null);
+buildList('list-g', ['G']);
+buildList('list-a', ['A']);
+buildList('list-ga', ['GA']);
+</script>
+</body>
+</html>
