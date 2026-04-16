@@ -3,359 +3,341 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planning Wimmob — 14 avril 2026</title>
+<title>Planning Wimmob</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;font-size:13px;padding:32px 40px}
-h1{font-size:22px;font-weight:700;margin-bottom:4px}
-.subtitle{font-size:13px;color:#666;margin-bottom:8px}
-.meta{font-size:12px;color:#888;margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid #1a1a1a}
-h2{font-size:16px;font-weight:700;margin:36px 0 4px;padding-top:8px}
-h2.first{margin-top:0}
-.section-sub{font-size:12px;color:#666;margin-bottom:14px}
-
-/* Gantt */
-.gantt-wrap{overflow-x:auto;margin-bottom:8px}
-.legend{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap;font-size:11px;color:#666}
-.leg-item{display:flex;align-items:center;gap:5px}
-.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
-table.gantt{border-collapse:collapse;width:100%;min-width:600px}
-table.gantt thead th{font-size:10px;font-weight:500;color:#888;padding:3px 0;border-bottom:1px solid #e0e0e0;text-align:center;white-space:nowrap}
-table.gantt thead th.lbl-hd{text-align:left;padding:3px 8px 3px 0;min-width:180px}
-table.gantt thead th.who-hd{padding:3px 8px;min-width:60px}
-table.gantt thead th.today-hd{color:#d68910;font-weight:700}
-table.gantt tbody tr{border-bottom:1px solid #f0f0f0}
-table.gantt tbody tr.client-sep td{border-top:1px solid #d0d0d0;padding-top:8px}
-table.gantt td{padding:0;vertical-align:middle}
-table.gantt td.label{font-size:11px;white-space:nowrap;max-width:190px;overflow:hidden;text-overflow:ellipsis;padding:4px 8px 4px 0;min-width:180px}
-table.gantt td.label.client-first{padding-top:8px}
-table.gantt td.who-cell{font-size:10px;white-space:nowrap;padding:3px 8px}
-table.gantt td.day-cell{width:26px;min-width:26px;padding:2px 0}
-table.gantt td.today-col{background:rgba(186,117,23,.07)}
-table.gantt td.we-col{background:#f8f8f8}
-.bar-wrap{display:flex;align-items:center;height:16px;overflow:visible}
-.bar{height:16px;flex-shrink:0;width:100%}
-.bar-g{background:#1D9E75}
-.bar-a{background:#378ADD}
-.bar-ga{background:#EF9F27}
-.bar-start{border-radius:3px 0 0 3px}
-.bar-end{border-radius:0 3px 3px 0}
-.bar-solo{border-radius:3px}
-.bar-mid{border-radius:0}
-.dl-tag{font-size:9px;color:#888;white-space:nowrap;padding-left:4px;flex-shrink:0}
-.who-g{color:#085041;background:#E1F5EE;padding:1px 6px;border-radius:8px;font-weight:600}
-.who-a{color:#0C447C;background:#E6F1FB;padding:1px 6px;border-radius:8px;font-weight:600}
-.who-ga{color:#633806;background:#FAEEDA;padding:1px 6px;border-radius:8px;font-weight:600}
-.client-label-row td{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#999;padding:10px 0 2px;background:#fafafa;border-top:1px solid #e8e8e8}
-
-/* Task lists */
-.task-list{margin-bottom:8px}
-.task-list table{width:100%;border-collapse:collapse}
-.task-list table th{font-size:10px;font-weight:600;color:#888;text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid #e0e0e0;text-transform:uppercase;letter-spacing:.05em}
-.task-list table td{font-size:12px;padding:5px 10px 5px 0;border-bottom:1px solid #f0f0f0;vertical-align:top}
-.task-list table td.dossier-cell{color:#888;font-size:11px;white-space:nowrap}
-.task-list table td.who-td{white-space:nowrap}
-.task-list table td.dl-td{white-space:nowrap;font-size:11px}
-.dl-fire{color:#c0392b;font-weight:600}
-.dl-warn{color:#d68910;font-weight:600}
-.dl-ok{color:#1a7a4a}
-.task-list table tr.client-sep td{border-top:1px solid #d0d0d0;padding-top:8px}
-
-/* Page breaks */
-.page-break{page-break-before:always;break-before:always;margin-top:0;padding-top:0}
-.section-block{page-break-inside:avoid}
-
-/* Print */
-@media print{
-  body{padding:20px 28px;font-size:12px}
-  h2{margin-top:24px}
-  .gantt-wrap{overflow:visible}
-  table.gantt{min-width:0}
-}
+:root{--bg:#f5f4f0;--card:#fff;--border:#e0ddd5;--text:#1a1a1a;--muted:#777;--radius:10px;--radius-sm:6px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 20px}
+.wrap{max-width:900px;margin:0 auto}
+.header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:20px}
+.title{font-size:22px;font-weight:700;flex:1}
+.subtitle{font-size:13px;color:var(--muted);margin-top:2px}
+.btn{font-size:13px;padding:7px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card);color:var(--muted);cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--bg)}
+.btn-primary{background:#e6f1fb;color:#185fa5;border-color:#b5d4f4;font-weight:600}
+.btn-primary:hover{opacity:.85}
+.btn-danger{background:#faece7;color:#993c1d;border-color:#f0997b}
+.sync-bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:20px;padding:8px 14px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0}
+.sync-dot.off{background:#E24B4A}
+.sync-dot.loading{background:#EF9F27}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.fb{font-size:12px;padding:3px 12px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--muted);cursor:pointer;font-family:inherit}
+.fb.on{background:#e6f1fb;color:#185fa5;border-color:#b5d4f4}
+.clients{display:flex;flex-direction:column;gap:0}
+.client-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+.client-hdr{padding:10px 16px;border-bottom:1px solid var(--border);background:#fafaf8;display:flex;align-items:center;gap:8px}
+.client-nom{font-size:13px;font-weight:700;flex:1}
+.client-ville{font-size:11px;color:var(--muted);font-style:italic}
+.tasks{display:flex;flex-direction:column}
+.task-row{display:flex;align-items:flex-start;gap:10px;padding:9px 16px;border-bottom:0.5px solid var(--border)}
+.task-row:last-child{border-bottom:none}
+.task-row.done .task-text{text-decoration:line-through;color:var(--muted)}
+.cb{width:16px;height:16px;border:1.5px solid #ccc;border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:#fff}
+.cb.checked{background:#639922;border-color:#639922}
+.cb.checked::after{content:'';display:block;width:4px;height:8px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
+.task-body{flex:1;min-width:0}
+.task-text{font-size:13px;color:var(--text);line-height:1.4;cursor:pointer}
+.task-meta{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;align-items:center}
+.who{font-size:11px;padding:1px 8px;border-radius:10px;font-weight:500}
+.who-G{color:#085041;background:#E1F5EE}
+.who-A{color:#0C447C;background:#E6F1FB}
+.who-GA{color:#633806;background:#FAEEDA}
+.dl{font-size:11px;font-weight:500}
+.dl-fire{color:#A32D2D}
+.dl-warn{color:#854F0B}
+.dl-ok{color:#3B6D11}
+.dl-open{color:var(--muted);font-style:italic}
+.task-actions{display:flex;gap:4px;flex-shrink:0}
+.icon-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:2px 4px;color:var(--muted);border-radius:4px}
+.icon-btn:hover{background:var(--bg);color:var(--text)}
+.add-form{padding:10px 16px;border-top:1px solid var(--border);background:#fafaf8;display:none}
+.add-form.open{display:block}
+.add-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.add-form input,.add-form select{font-size:12px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 8px;background:#fff;color:var(--text);font-family:inherit;width:100%}
+.add-form-btns{display:flex;gap:6px;justify-content:flex-end}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:var(--radius);padding:1.5rem;width:90%;max-width:440px}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:14px}
+.modal-field{margin-bottom:10px}
+.modal-field label{font-size:12px;color:var(--muted);display:block;margin-bottom:3px}
+.modal-field input,.modal-field select{width:100%;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px 9px;font-family:inherit}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.add-client-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1px dashed var(--border);border-radius:var(--radius);color:var(--muted);font-size:13px;cursor:pointer;background:transparent;font-family:inherit;width:100%;margin-bottom:10px}
+.add-client-btn:hover{background:var(--card)}
+.empty{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;font-size:13px;padding:10px 18px;border-radius:8px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:200}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
-
-<h1>Planning Wimmob</h1>
-<div class="subtitle">Séance du mardi 14 avril 2026 — Gaëlle &amp; Aymeric</div>
-<div class="meta">Généré le 15/04/2026</div>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--  SECTION 1 — PLANNINGS GANTT                   -->
-<!-- ═══════════════════════════════════════════════ -->
-
-<h2 class="first">1. Planning général — toutes les tâches</h2>
-<div class="section-sub">Du 15 au 30 avril 2026</div>
-<div id="gantt-all"></div>
-
-<div class="page-break"></div>
-
-<h2>2. Planning Gaëlle</h2>
-<div class="section-sub">Tâches assignées à Gaëlle uniquement</div>
-<div id="gantt-g"></div>
-
-<div class="page-break"></div>
-
-<h2>3. Planning Aymeric</h2>
-<div class="section-sub">Tâches assignées à Aymeric uniquement</div>
-<div id="gantt-a"></div>
-
-<div class="page-break"></div>
-
-<h2>4. Planning Gaëlle + Aymeric</h2>
-<div class="section-sub">Tâches partagées entre Gaëlle et Aymeric</div>
-<div id="gantt-ga"></div>
-
-<div class="page-break"></div>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--  SECTION 2 — LISTES DE TÂCHES                  -->
-<!-- ═══════════════════════════════════════════════ -->
-
-<h2>5. Liste globale — toutes les tâches</h2>
-<div class="section-sub">Classées par client, puis par deadline</div>
-<div id="list-all"></div>
-
-<div class="page-break"></div>
-
-<h2>6. Liste Gaëlle</h2>
-<div class="section-sub">Tâches assignées à Gaëlle uniquement</div>
-<div id="list-g"></div>
-
-<div class="page-break"></div>
-
-<h2>7. Liste Aymeric</h2>
-<div class="section-sub">Tâches assignées à Aymeric uniquement</div>
-<div id="list-a"></div>
-
-<div class="page-break"></div>
-
-<h2>8. Liste Gaëlle + Aymeric</h2>
-<div class="section-sub">Tâches partagées entre Gaëlle et Aymeric</div>
-<div id="list-ga"></div>
-
+<div class="wrap">
+  <div class="header">
+    <div>
+      <div class="title">Planning Wimmob</div>
+      <div class="subtitle">Séance du mardi — Gaëlle &amp; Aymeric</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="window.print()">Imprimer</button>
+      <button class="btn btn-primary" id="add-client-top">+ Ajouter un client</button>
+    </div>
+  </div>
+ 
+  <div class="sync-bar">
+    <div class="sync-dot loading" id="sync-dot"></div>
+    <span id="sync-label">Connexion à la base de données...</span>
+    <span style="margin-left:auto;font-size:11px" id="last-sync"></span>
+  </div>
+ 
+  <div class="filters">
+    <button class="fb on" data-f="all">Tous</button>
+    <button class="fb" data-f="G">Gaëlle</button>
+    <button class="fb" data-f="A">Aymeric</button>
+    <button class="fb" data-f="GA">G + A</button>
+    <button class="fb" data-f="todo">À faire</button>
+  </div>
+ 
+  <div class="clients" id="clients-list"></div>
+  <button class="add-client-btn" id="add-client-btn">+ Nouveau client / dossier</button>
+</div>
+ 
+<div class="modal-overlay" id="modal-task">
+  <div class="modal">
+    <h3 id="modal-title">Nouvelle tâche</h3>
+    <div class="modal-field"><label>Tâche</label><input id="mt-tache" type="text" placeholder="Description de la tâche"></div>
+    <div class="modal-field"><label>Responsable</label>
+      <select id="mt-resp">
+        <option value="G">Gaëlle</option>
+        <option value="A">Aymeric</option>
+        <option value="GA">Gaëlle + Aymeric</option>
+      </select>
+    </div>
+    <div class="modal-field"><label>Deadline</label><input id="mt-dl" type="date"></div>
+    <input type="hidden" id="mt-id">
+    <input type="hidden" id="mt-client">
+    <div class="modal-btns">
+      <button class="btn" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveTask()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+ 
+<div class="modal-overlay" id="modal-client">
+  <div class="modal">
+    <h3>Nouveau client / dossier</h3>
+    <div class="modal-field"><label>Nom du client</label><input id="mc-nom" type="text" placeholder="SCI CAC"></div>
+    <div class="modal-field"><label>Ville</label><input id="mc-ville" type="text" placeholder="Saintes"></div>
+    <div class="modal-btns">
+      <button class="btn" onclick="closeClientModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveClient()">Créer</button>
+    </div>
+  </div>
+</div>
+ 
+<div class="toast" id="toast"></div>
+ 
 <script>
-const START = new Date('2026-04-15');
-const DAYS = 16;
-
-const TASKS = [
-  {client:'SCI CDS',          ville:'Bergerac',       l:'Relancer pour le contrat d\'apporteur d\'affaires',          w:'A',  d0:0, d1:15, open:true},
-  {client:'Laferrière',       ville:'Bergerac',       l:'Constituer et envoyer le dossier Action Logement',           w:'G',  d0:0, d1:4},
-  {client:'Laferrière',       ville:'Bergerac',       l:'Relancer Chaussadas dès le 20/04 (retour congés)',           w:'G',  d0:5, d1:5},
-  {client:'Javaloyes',        ville:'Bergerac',       l:'Envoyer dossier Action Logement (volet tech + formulaires)', w:'G',  d0:0, d1:4},
-  {client:'Giroud',           ville:'Bergerac',       l:'Relancer Guibret pour l\'offre de prêt en attente',          w:'G',  d0:0, d1:2},
-  {client:'Lair Florian',     ville:'Bourg-en-Bresse',l:'Transmettre l\'audit énergétique à la nouvelle entreprise',  w:'A',  d0:0, d1:4},
-  {client:'AS Invest',        ville:'Maubeuge',       l:'Réceptionner plans archi + transmettre à Sylvain (Yezo-H)', w:'A',  d0:0, d1:5},
-  {client:'AS Invest',        ville:'Maubeuge',       l:'Relancer Action Logement sur financement projet 9 lgts',     w:'A',  d0:0, d1:6},
-  {client:'AS Invest',        ville:'Maubeuge',       l:'Mettre à jour calcul subventions après réception des plans', w:'A',  d0:0, d1:10},
-  {client:'SCI AB Gambetta',  ville:'Saintes',        l:'Appeler Youssef — position du maire + réclamation évent.',   w:'G',  d0:0, d1:1},
-  {client:'SCI CAC',          ville:'Saintes',        l:'Appeler Marchasson (aujourd\'hui)',                          w:'G',  d0:0, d1:0},
-  {client:'SCI CAC',          ville:'Saintes',        l:'Envoyer éléments Action Logement à Marchasson',             w:'G',  d0:0, d1:9},
-  {client:'SCI CAC',          ville:'Saintes',        l:'Finaliser et déposer le dossier ANAH',                      w:'G',  d0:0, d1:6},
-  {client:'Be Hold Invest',   ville:'Tarbes',         l:'Organiser point technique à 3 (Gaëlle, Aymeric, client)',   w:'GA', d0:0, d1:15, open:true},
-  {client:'Be Hold Invest',   ville:'Tarbes',         l:'Visio mardi prochain — point sur compromis non signé',      w:'GA', d0:0, d1:7},
-  {client:'Bouteloup Keller', ville:'Agen',           l:'Envoyer dossier Action Logement à Jérémy Antoine',          w:'G',  d0:0, d1:15, open:true},
-  {client:'Bouteloup Keller', ville:'Agen',           l:'Monter le dossier ANAH',                                    w:'G',  d0:0, d1:15, open:true},
-  {client:'Interne',          ville:'',               l:'Mettre en place système timer/planning projets',            w:'GA', d0:0, d1:6},
-  {client:'Interne',          ville:'',               l:'Contacter équipe pour nouveaux formulaires Action Logement', w:'G',  d0:0, d1:0},
-];
-
-const barCls={G:'bar-g',A:'bar-a',GA:'bar-ga'};
-const whoCls={G:'who-g',A:'who-a',GA:'who-ga'};
-const whoLbl={G:'Gaëlle',A:'Aymeric',GA:'Gaëlle + Aymeric'};
-const whoShort={G:'Gaëlle',A:'Aymeric',GA:'G + A'};
-
-function addD(n){const d=new Date(START);d.setDate(d.getDate()+n);return d;}
-function isWE(n){const w=addD(n).getDay();return w===0||w===6;}
-function fmtShort(n){const d=addD(n);return d.getDate()+'/'+(d.getMonth()+1);}
-function fmtFull(n){const d=addD(n);return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});}
-function dlClass(n){
-  if(n===null) return '';
-  if(n<=0) return 'dl-fire';
-  if(n<=3) return 'dl-warn';
-  return 'dl-ok';
+const SUPA_URL = 'https://kfkgadwxfiklrgtppvhk.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtma2dhZHd4ZmlrbHJndHBwdmhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDk2NDksImV4cCI6MjA5MTkyNTY0OX0.IeasKsuSJNepaZ_qkOJWMlT10hyVSU4ol33l5M6o-2s';
+ 
+const { createClient } = supabase;
+const db = createClient(SUPA_URL, SUPA_KEY);
+ 
+let allTasks = [];
+let curFilter = 'all';
+let editingId = null;
+ 
+const whoLbl = {G:'Gaëlle', A:'Aymeric', GA:'G + A'};
+const whoCls = {G:'who-G', A:'who-A', GA:'who-GA'};
+ 
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
-function dlLabel(t){
-  if(t.open) return 'en cours';
-  const d=addD(t.d1);
-  const diff=t.d1;
-  if(diff===0) return 'aujourd\'hui';
-  if(diff===1) return 'demain';
-  return fmtFull(t.d1);
+ 
+function setSyncStatus(ok, msg){
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  dot.className = 'sync-dot ' + (ok === null ? 'loading' : ok ? '' : 'off');
+  lbl.textContent = msg;
+  if(ok) document.getElementById('last-sync').textContent = 'Dernière sync : ' + new Date().toLocaleTimeString('fr-FR');
 }
-
-function buildGantt(containerId, filter){
-  const tasks = filter ? TASKS.filter(t=>filter.includes(t.w)) : TASKS;
-  const container = document.getElementById(containerId);
-
-  const legend = document.createElement('div');
-  legend.className='legend';
-  const show = filter || ['G','A','GA'];
-  if(show.includes('G')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Gaëlle</div>`;
-  if(show.includes('A')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div>Aymeric</div>`;
-  if(show.includes('GA')) legend.innerHTML+=`<div class="leg-item"><div class="leg-dot" style="background:#EF9F27"></div>Gaëlle + Aymeric</div>`;
-  container.appendChild(legend);
-
-  const wrap=document.createElement('div');
-  wrap.className='gantt-wrap';
-  const tbl=document.createElement('table');
-  tbl.className='gantt';
-
-  const thead=document.createElement('thead');
-  const trH=document.createElement('tr');
-  let th=document.createElement('th');th.className='lbl-hd';th.textContent='Client / Tâche';trH.appendChild(th);
-  th=document.createElement('th');th.className='who-hd';th.textContent='Resp.';trH.appendChild(th);
-  for(let i=0;i<DAYS;i++){
-    const d=addD(i);
-    const t=document.createElement('th');
-    t.className='day-hd'+(i===0?' today-hd':'');
-    t.textContent=d.getDate()+'/'+(d.getMonth()+1);
-    if(isWE(i))t.style.opacity='.4';
-    trH.appendChild(t);
+ 
+function dlInfo(dl, fait){
+  if(fait) return {cls:'dl-ok', label:'Fait'};
+  if(!dl) return {cls:'dl-open', label:'pas de deadline'};
+  const d = new Date(dl);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((d - today) / 86400000);
+  const label = diff < 0 ? 'en retard' : diff === 0 ? "aujourd'hui" : diff === 1 ? 'demain' : d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
+  const cls = diff < 0 ? 'dl-fire' : diff <= 3 ? 'dl-warn' : 'dl-ok';
+  return {cls, label};
+}
+ 
+function groupByClient(tasks){
+  const map = {};
+  tasks.forEach(t => {
+    if(!map[t.client]) map[t.client] = {ville: t.ville||'', tasks:[]};
+    map[t.client].tasks.push(t);
+  });
+  return map;
+}
+ 
+function render(){
+  const list = document.getElementById('clients-list');
+  let filtered = allTasks;
+  if(curFilter === 'G') filtered = allTasks.filter(t => t.responsable === 'G');
+  else if(curFilter === 'A') filtered = allTasks.filter(t => t.responsable === 'A');
+  else if(curFilter === 'GA') filtered = allTasks.filter(t => t.responsable === 'GA');
+  else if(curFilter === 'todo') filtered = allTasks.filter(t => !t.fait);
+ 
+  const groups = groupByClient(filtered);
+  list.innerHTML = '';
+ 
+  if(Object.keys(groups).length === 0){
+    list.innerHTML = '<div class="empty">Aucune tâche — clique sur "+ Nouveau client" pour commencer</div>';
+    return;
   }
-  thead.appendChild(trH);
-  tbl.appendChild(thead);
-
-  const tbody=document.createElement('tbody');
-  let lastClient='';
-
-  tasks.forEach((t,idx)=>{
-    const isNewClient = t.client!==lastClient;
-    if(isNewClient && lastClient!==''){
-      const sep=document.createElement('tr');
-      sep.className='client-label-row';
-      const std=document.createElement('td');
-      std.colSpan=2+DAYS;std.style.height='4px';std.style.padding='0';
-      sep.appendChild(std);
-      tbody.appendChild(sep);
-    }
-    if(isNewClient){
-      const cr=document.createElement('tr');
-      cr.className='client-label-row';
-      const ctd=document.createElement('td');
-      ctd.colSpan=2+DAYS;
-      ctd.textContent=t.client+(t.ville?' — '+t.ville:'');
-      cr.appendChild(ctd);
-      tbody.appendChild(cr);
-      lastClient=t.client;
-    }
-
-    const tr=document.createElement('tr');
-    const tdL=document.createElement('td');
-    tdL.className='label';
-    tdL.textContent=t.l;tdL.title=t.l;
-    tr.appendChild(tdL);
-
-    const tdW=document.createElement('td');
-    tdW.className='who-cell';
-    tdW.innerHTML=`<span class="${whoCls[t.w]}">${whoShort[t.w]}</span>`;
-    tr.appendChild(tdW);
-
-    for(let i=0;i<DAYS;i++){
-      const td=document.createElement('td');
-      td.className='day-cell'+(i===0?' today-col':'')+(isWE(i)?' we-col':'');
-
-      if(i>=t.d0 && i<=t.d1){
-        if(i===t.d1){
-          const wrap2=document.createElement('div');
-          wrap2.className='bar-wrap';
-          const bar=document.createElement('div');
-          bar.className='bar '+barCls[t.w];
-          bar.style.width='100%';
-          if(t.d0===t.d1) bar.classList.add('bar-solo');
-          else bar.classList.add('bar-end');
-          wrap2.appendChild(bar);
-          if(!t.open){
-            const lbl=document.createElement('span');
-            lbl.className='dl-tag';
-            lbl.textContent=fmtShort(t.d1);
-            wrap2.appendChild(lbl);
-          }
-          td.appendChild(wrap2);
-          td.style.overflow='visible';
-        } else {
-          const bar=document.createElement('div');
-          bar.className='bar '+barCls[t.w];
-          bar.style.width='100%';
-          if(t.d0===t.d1) bar.classList.add('bar-solo');
-          else if(i===t.d0) bar.classList.add('bar-start');
-          else bar.classList.add('bar-mid');
-          td.appendChild(bar);
-        }
-      }
-      tr.appendChild(td);
-    }
-    tbody.appendChild(tr);
+ 
+  Object.entries(groups).forEach(([client, {ville, tasks}]) => {
+    const block = document.createElement('div');
+    block.className = 'client-block';
+ 
+    block.innerHTML = `
+      <div class="client-hdr">
+        <span class="client-nom">${client}</span>
+        ${ville ? `<span class="client-ville">${ville}</span>` : ''}
+        <button class="btn" style="font-size:11px;padding:3px 10px" onclick="openTaskModal('${client.replace(/'/g,"\\'")}')">+ Tâche</button>
+      </div>
+      <div class="tasks" id="tasks-${encodeURIComponent(client)}"></div>`;
+ 
+    list.appendChild(block);
+ 
+    const tl = block.querySelector(`#tasks-${encodeURIComponent(client)}`);
+    tasks.forEach(t => {
+      const {cls, label} = dlInfo(t.deadline, t.fait);
+      const row = document.createElement('div');
+      row.className = 'task-row' + (t.fait ? ' done' : '');
+      row.innerHTML = `
+        <div class="cb ${t.fait ? 'checked' : ''}" onclick="toggleTask('${t.id}', ${!t.fait})"></div>
+        <div class="task-body">
+          <div class="task-text">${t.tache}</div>
+          <div class="task-meta">
+            <span class="who ${whoCls[t.responsable]}">${whoLbl[t.responsable]}</span>
+            <span class="dl ${cls}">${label}</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="icon-btn" title="Modifier" onclick="editTask(${JSON.stringify(t).replace(/"/g,'&quot;')})">✎</button>
+          <button class="icon-btn" title="Supprimer" onclick="deleteTask('${t.id}')">✕</button>
+        </div>`;
+      tl.appendChild(row);
+    });
   });
-
-  tbl.appendChild(tbody);
-  wrap.appendChild(tbl);
-  container.appendChild(wrap);
 }
-
-function buildList(containerId, filter){
-  const tasks = filter ? TASKS.filter(t=>filter.includes(t.w)) : TASKS;
-  const container = document.getElementById(containerId);
-  const wrap=document.createElement('div');
-  wrap.className='task-list';
-  const tbl=document.createElement('table');
-
-  const thead=document.createElement('thead');
-  const trH=document.createElement('tr');
-  ['Client','Tâche','Responsable','Deadline'].forEach((h,i)=>{
-    const th=document.createElement('th');
-    th.textContent=h;
-    if(i===1) th.style.width='45%';
-    trH.appendChild(th);
-  });
-  thead.appendChild(trH);
-  tbl.appendChild(thead);
-
-  const tbody=document.createElement('tbody');
-  let lastClient='';
-
-  tasks.forEach(t=>{
-    const isNew=t.client!==lastClient;
-    const tr=document.createElement('tr');
-    if(isNew && lastClient!=='') tr.classList.add('client-sep');
-
-    const tdC=document.createElement('td');
-    tdC.className='dossier-cell';
-    if(isNew){
-      tdC.textContent=t.client+(t.ville?' ('+t.ville+')':'');
-      lastClient=t.client;
-    }
-    tr.appendChild(tdC);
-
-    const tdL=document.createElement('td');tdL.textContent=t.l;tr.appendChild(tdL);
-
-    const tdW=document.createElement('td');
-    tdW.className='who-td';
-    tdW.innerHTML=`<span class="${whoCls[t.w]}">${whoShort[t.w]}</span>`;
-    tr.appendChild(tdW);
-
-    const tdD=document.createElement('td');
-    tdD.className='dl-td '+dlClass(t.open?null:t.d1);
-    tdD.textContent=dlLabel(t);
-    tr.appendChild(tdD);
-
-    tbody.appendChild(tr);
-  });
-
-  tbl.appendChild(tbody);
-  wrap.appendChild(tbl);
-  container.appendChild(wrap);
+ 
+async function loadTasks(){
+  setSyncStatus(null, 'Chargement...');
+  const { data, error } = await db.from('taches').select('*').order('client').order('deadline', {nullsFirst: false});
+  if(error){ setSyncStatus(false, 'Erreur de connexion'); return; }
+  allTasks = data;
+  setSyncStatus(true, 'Connecté — données synchronisées');
+  render();
 }
-
-buildGantt('gantt-all', null);
-buildGantt('gantt-g', ['G']);
-buildGantt('gantt-a', ['A']);
-buildGantt('gantt-ga', ['GA']);
-
-buildList('list-all', null);
-buildList('list-g', ['G']);
-buildList('list-a', ['A']);
-buildList('list-ga', ['GA']);
+ 
+async function toggleTask(id, fait){
+  await db.from('taches').update({fait}).eq('id', id);
+  await loadTasks();
+  toast(fait ? 'Tâche marquée comme faite' : 'Tâche réouverte');
+}
+ 
+async function deleteTask(id){
+  if(!confirm('Supprimer cette tâche ?')) return;
+  await db.from('taches').delete().eq('id', id);
+  await loadTasks();
+  toast('Tâche supprimée');
+}
+ 
+function editTask(t){
+  editingId = t.id;
+  document.getElementById('modal-title').textContent = 'Modifier la tâche';
+  document.getElementById('mt-tache').value = t.tache;
+  document.getElementById('mt-resp').value = t.responsable;
+  document.getElementById('mt-dl').value = t.deadline || '';
+  document.getElementById('mt-client').value = t.client;
+  document.getElementById('modal-task').classList.add('open');
+}
+ 
+function openTaskModal(client){
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'Nouvelle tâche';
+  document.getElementById('mt-tache').value = '';
+  document.getElementById('mt-resp').value = 'G';
+  document.getElementById('mt-dl').value = '';
+  document.getElementById('mt-client').value = client;
+  document.getElementById('modal-task').classList.add('open');
+}
+ 
+function closeModal(){ document.getElementById('modal-task').classList.remove('open'); }
+function closeClientModal(){ document.getElementById('modal-client').classList.remove('open'); }
+ 
+async function saveTask(){
+  const tache = document.getElementById('mt-tache').value.trim();
+  if(!tache){ alert('La tâche ne peut pas être vide'); return; }
+  const payload = {
+    tache,
+    responsable: document.getElementById('mt-resp').value,
+    deadline: document.getElementById('mt-dl').value || null,
+    client: document.getElementById('mt-client').value,
+  };
+  if(editingId){
+    await db.from('taches').update(payload).eq('id', editingId);
+    toast('Tâche modifiée');
+  } else {
+    const ville = allTasks.find(t => t.client === payload.client)?.ville || '';
+    await db.from('taches').insert({...payload, ville, fait: false});
+    toast('Tâche ajoutée');
+  }
+  closeModal();
+  await loadTasks();
+}
+ 
+async function saveClient(){
+  const nom = document.getElementById('mc-nom').value.trim();
+  if(!nom){ alert('Le nom ne peut pas être vide'); return; }
+  const ville = document.getElementById('mc-ville').value.trim();
+  await db.from('taches').insert({client: nom, ville, tache:'(premier point à renseigner)', responsable:'G', fait:false, deadline:null});
+  closeClientModal();
+  await loadTasks();
+  toast('Client ajouté');
+}
+ 
+document.querySelectorAll('.fb').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.fb').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  curFilter = b.dataset.f;
+  render();
+}));
+ 
+document.getElementById('add-client-btn').addEventListener('click', () => {
+  document.getElementById('mc-nom').value = '';
+  document.getElementById('mc-ville').value = '';
+  document.getElementById('modal-client').classList.add('open');
+});
+document.getElementById('add-client-top').addEventListener('click', () => {
+  document.getElementById('mc-nom').value = '';
+  document.getElementById('mc-ville').value = '';
+  document.getElementById('modal-client').classList.add('open');
+});
+ 
+// Sync automatique toutes les 30 secondes
+setInterval(loadTasks, 30000);
+ 
+// Charger au démarrage
+loadTasks();
 </script>
 </body>
 </html>
